@@ -1,0 +1,111 @@
+package com.amazing.amazing.demo;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Pair;
+import android.view.View;
+import android.widget.TextView;
+
+import com.amazing.amazing.R;
+import com.amazing.amazing.pinnable.PinnableRecyclerAdapter;
+import com.amazing.amazing.pinnable.PinnableRecyclerView;
+
+import java.util.List;
+
+
+public class SectionRecyclerActivity extends Activity {
+    PinnableRecyclerView lsComposer;
+    SectionComposerAdapter adapter;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_section_recycler);
+
+        lsComposer = (PinnableRecyclerView) findViewById(R.id.lsComposer);
+        lsComposer.setRecyclerViewAdapter(adapter = new SectionComposerAdapter());
+    }
+
+    class SectionComposerAdapter extends PinnableRecyclerAdapter {
+        List<Pair<String, List<Composer>>> all = Data.getAllData();
+
+        @Override
+        public int getPositionForSection(int section) {
+            if (section < 0) section = 0;
+            if (section >= all.size()) section = all.size() - 1;
+            int c = 0;
+            for (int i = 0; i < all.size(); i++) {
+                if (section == i) {
+                    return c;
+                }
+                c += all.get(i).second.size();
+            }
+            return 0;
+        }
+
+        @Override
+        public int getSectionForPosition(int position) {
+            int c = 0;
+            for (int i = 0; i < all.size(); i++) {
+                if (position >= c && position < c + all.get(i).second.size()) {
+                    return i;
+                }
+                c += all.get(i).second.size();
+            }
+            return -1;
+        }
+
+        @Override
+        protected void configureSection(View header, View content, int position, boolean shouldShowHeader) {
+            if (shouldShowHeader) {
+                header.findViewById(R.id.header).setVisibility(View.VISIBLE);
+                TextView lSectionTitle = (TextView) header.findViewById(R.id.header);
+                lSectionTitle.setText(getSections()[getSectionForPosition(position)]);
+            } else {
+                header.findViewById(R.id.header).setVisibility(View.GONE);
+            }
+        }
+
+        @Override
+        public int getPinnableHeaderView() {
+            return R.layout.item_composer_header;
+        }
+
+        @Override
+        public int getPinnableContentView(int viewType) {
+            return R.layout.item_composer_content;
+        }
+
+        @Override
+        public void configurePinnableHeader(View header, int position, int progress) {
+            TextView lSectionHeader = (TextView) header;
+            lSectionHeader.setText(getSections()[getSectionForPosition(position)]);
+            lSectionHeader.setBackgroundColor(progress << 24 | (0xbbffbb));
+            lSectionHeader.setTextColor(progress << 24 | (0x000000));
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return 0;
+        }
+
+        @Override
+        public int getItemCount() {
+            int res = 0;
+            for (int i = 0; i < all.size(); i++) {
+                res += all.get(i).second.size();
+            }
+            return res;
+        }
+
+        @Override
+        public String[] getSections() {
+            String[] res = new String[all.size()];
+            for (int i = 0; i < all.size(); i++) {
+                res[i] = all.get(i).first;
+            }
+            return res;
+        }
+
+    }
+}

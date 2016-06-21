@@ -17,6 +17,7 @@
         </activity>
         <activity android:name=".demo.PaginationDemoActivity" />
         <activity android:name=".demo.SectionDemoActivity" />
+        <activity android:name=".demo.SectionRecyclerActivity" />
 
     </application>
 
