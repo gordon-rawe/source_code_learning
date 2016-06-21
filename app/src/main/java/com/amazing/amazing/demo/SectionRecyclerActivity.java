@@ -56,7 +56,7 @@ public class SectionRecyclerActivity extends Activity {
         }
 
         @Override
-        protected void configureSection(View header, View content, int position, boolean shouldShowHeader) {
+        protected void configureSection(View header, View content, int position, int viewType, boolean shouldShowHeader) {
             if (shouldShowHeader) {
                 header.findViewById(R.id.header).setVisibility(View.VISIBLE);
                 TextView lSectionTitle = (TextView) header.findViewById(R.id.header);
@@ -66,13 +66,13 @@ public class SectionRecyclerActivity extends Activity {
             }
             TextView lName = (TextView) content.findViewById(R.id.lName);
             TextView lYear = (TextView) content.findViewById(R.id.lYear);
-            Composer composer = getItem(position);
+            Composer composer = (Composer) getItem(position);
             lName.setText(composer.name);
             lYear.setText(composer.year);
         }
 
         @Override
-        public Composer getItem(int position) {
+        public Object getItem(int position) {
             int c = 0;
             for (int i = 0; i < all.size(); i++) {
                 if (position >= c && position < c + all.get(i).second.size()) {

@@ -57,7 +57,7 @@ public abstract class PinnableRecyclerAdapter extends RecyclerView.Adapter<Pinna
     public void onBindViewHolder(PinnableViewHolder holder, int position) {
         final int section = getSectionForPosition(position);
         boolean shouldShowHeader = (getPositionForSection(section) == position);
-        configureSection(holder.header, holder.content, position, shouldShowHeader);
+        configureSection(holder.header, holder.content, position, getItemViewType(position), shouldShowHeader);
     }
 
     public class PinnableViewHolder extends RecyclerView.ViewHolder {
@@ -89,9 +89,9 @@ public abstract class PinnableRecyclerAdapter extends RecyclerView.Adapter<Pinna
     @Override
     public abstract int getSectionForPosition(int i);
 
-    public abstract Composer getItem(int position);
+    public abstract Object getItem(int position);
 
-    protected abstract void configureSection(View header, View content, int position, boolean shouldShowHeader);
+    protected abstract void configureSection(View header, View content, int position, int viewType, boolean shouldShowHeader);
 
     public abstract int getPinnableHeaderView();
 
