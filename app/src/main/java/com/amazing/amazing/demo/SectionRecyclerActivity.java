@@ -15,7 +15,7 @@ import java.util.List;
 
 public class SectionRecyclerActivity extends Activity {
     PinnableRecyclerView lsComposer;
-    SectionComposerAdapter adapter;
+    SectionComposerRecyclerAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,10 +23,10 @@ public class SectionRecyclerActivity extends Activity {
         setContentView(R.layout.activity_section_recycler);
 
         lsComposer = (PinnableRecyclerView) findViewById(R.id.lsComposer);
-        lsComposer.setRecyclerViewAdapter(adapter = new SectionComposerAdapter());
+        lsComposer.setRecyclerViewAdapter(adapter = new SectionComposerRecyclerAdapter());
     }
 
-    class SectionComposerAdapter extends PinnableRecyclerAdapter {
+    class SectionComposerRecyclerAdapter extends PinnableRecyclerAdapter {
         List<Pair<String, List<Composer>>> all = Data.getAllData();
 
         @Override
@@ -64,6 +64,23 @@ public class SectionRecyclerActivity extends Activity {
             } else {
                 header.findViewById(R.id.header).setVisibility(View.GONE);
             }
+            TextView lName = (TextView) content.findViewById(R.id.lName);
+            TextView lYear = (TextView) content.findViewById(R.id.lYear);
+            Composer composer = getItem(position);
+            lName.setText(composer.name);
+            lYear.setText(composer.year);
+        }
+
+        @Override
+        public Composer getItem(int position) {
+            int c = 0;
+            for (int i = 0; i < all.size(); i++) {
+                if (position >= c && position < c + all.get(i).second.size()) {
+                    return all.get(i).second.get(position - c);
+                }
+                c += all.get(i).second.size();
+            }
+            return null;
         }
 
         @Override

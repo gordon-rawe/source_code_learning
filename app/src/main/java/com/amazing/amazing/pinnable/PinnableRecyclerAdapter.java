@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.SectionIndexer;
 
 import com.amazing.amazing.R;
+import com.amazing.amazing.demo.Composer;
 
 /**
  * Created by gordon on 6/21/16.
@@ -52,33 +53,25 @@ public abstract class PinnableRecyclerAdapter extends RecyclerView.Adapter<Pinna
         return PINNED_HEADER_VISIBLE;
     }
 
-    /**
-     * Configure the view (a listview item) to display headers or not based on displaySectionHeader
-     * (e.g. if displaySectionHeader header.setVisibility(VISIBLE) else header.setVisibility(GONE)).
-     */
-    protected abstract void configureSection(View header, View content, int position, boolean shouldShowHeader);
-
-    /**
-     * read: get view too
-     */
-    public abstract int getPinnableHeaderView();
-
-    public abstract int getPinnableContentView(int viewType);
-
-    /**
-     * Configures the pinned header view to match the first visible list item.
-     *
-     * @param header   pinned header view.
-     * @param position position of the first visible list item.
-     * @param progress fading of the header view, between 0 and 255.
-     */
-    public abstract void configurePinnableHeader(View header, int position, int progress);
-
     @Override
     public void onBindViewHolder(PinnableViewHolder holder, int position) {
         final int section = getSectionForPosition(position);
         boolean shouldShowHeader = (getPositionForSection(section) == position);
         configureSection(holder.header, holder.content, position, shouldShowHeader);
+    }
+
+    public class PinnableViewHolder extends RecyclerView.ViewHolder {
+
+        public ViewGroup header;
+        public ViewGroup content;
+        public View itemView;
+
+        public PinnableViewHolder(View itemView) {
+            super(itemView);
+            this.itemView = itemView;
+            header = (ViewGroup) itemView.findViewById(R.id.abstract_header);
+            content = (ViewGroup) itemView.findViewById(R.id.abstract_content);
+        }
     }
 
     @Override
@@ -96,17 +89,13 @@ public abstract class PinnableRecyclerAdapter extends RecyclerView.Adapter<Pinna
     @Override
     public abstract int getSectionForPosition(int i);
 
-    public class PinnableViewHolder extends RecyclerView.ViewHolder {
+    public abstract Composer getItem(int position);
 
-        public ViewGroup header;
-        public ViewGroup content;
-        public View itemView;
+    protected abstract void configureSection(View header, View content, int position, boolean shouldShowHeader);
 
-        public PinnableViewHolder(View itemView) {
-            super(itemView);
-            this.itemView = itemView;
-            header = (ViewGroup) itemView.findViewById(R.id.abstract_header);
-            content = (ViewGroup) itemView.findViewById(R.id.abstract_content);
-        }
-    }
+    public abstract int getPinnableHeaderView();
+
+    public abstract int getPinnableContentView(int viewType);
+
+    public abstract void configurePinnableHeader(View header, int position, int progress);
 }
