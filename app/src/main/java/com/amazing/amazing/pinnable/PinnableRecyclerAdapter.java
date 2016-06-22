@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.SectionIndexer;
 
 import com.amazing.amazing.R;
-import com.amazing.amazing.demo.Composer;
 
 /**
  * Created by gordon on 6/21/16.

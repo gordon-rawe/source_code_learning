@@ -19,6 +19,6 @@ public class MainActivity extends Activity {
     }
 
     public void bDemo2_click(View v) {
-        startActivity(new Intent(this, PaginationDemoActivity.class));
+        startActivity(new Intent(this, CustomActivity.class));
     }
 }
