@@ -21,6 +21,8 @@ public class PinnableRecyclerView extends RecyclerView {
     private View mHeaderView;
     private boolean mHeaderViewVisible;
 
+
+
     private int mHeaderViewWidth;
     private int mHeaderViewHeight;
 
