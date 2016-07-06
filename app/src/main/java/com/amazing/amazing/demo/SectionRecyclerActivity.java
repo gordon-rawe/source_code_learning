@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.amazing.amazing.R;
-import com.amazing.amazing.pinnable.PinnableRecyclerAdapter;
+import com.amazing.amazing.pinnable.PinnedRecyclerAdapter;
 import com.amazing.amazing.pinnable.PinnableRecyclerView;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class SectionRecyclerActivity extends Activity {
         lsComposer.setRecyclerViewAdapter(adapter = new SectionComposerRecyclerAdapter());
     }
 
-    class SectionComposerRecyclerAdapter extends PinnableRecyclerAdapter {
+    class SectionComposerRecyclerAdapter extends PinnedRecyclerAdapter {
         List<Pair<String, List<Composer>>> all = Data.getAllData();
 
         @Override

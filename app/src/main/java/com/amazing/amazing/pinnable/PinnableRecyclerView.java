@@ -25,7 +25,7 @@ public class PinnableRecyclerView extends RecyclerView {
     private int mHeaderViewHeight;
 
     private LinearLayoutManager layoutManager;
-    private PinnableRecyclerAdapter adapter;
+    private PinnedRecyclerAdapter adapter;
 
 
     private void setPinnableHeaderView(View headerView) {
@@ -33,7 +33,7 @@ public class PinnableRecyclerView extends RecyclerView {
         requestLayout();
     }
 
-    public void setRecyclerViewAdapter(PinnableRecyclerAdapter adapter) {
+    public void setRecyclerViewAdapter(PinnedRecyclerAdapter adapter) {
         this.adapter = adapter;
         setAdapter(adapter);
         setPinnableHeaderView(LayoutInflater.from(getContext()).inflate(adapter.getPinnableHeaderView(), this, false));

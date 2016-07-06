@@ -2,16 +2,9 @@ package com.amazing.amazing.demo;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Pair;
-import android.view.View;
-import android.widget.TextView;
 
 import com.amazing.amazing.R;
 import com.amazing.amazing.custom.FootPrintItemView;
-import com.amazing.amazing.pinnable.PinnableRecyclerAdapter;
-import com.amazing.amazing.pinnable.PinnableRecyclerView;
-
-import java.util.List;
 
 
 public class CustomActivity extends Activity {

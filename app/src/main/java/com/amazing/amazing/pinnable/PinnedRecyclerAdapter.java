@@ -11,8 +11,8 @@ import com.amazing.amazing.R;
 /**
  * Created by gordon on 6/21/16.
  */
-public abstract class PinnableRecyclerAdapter extends RecyclerView.Adapter<PinnableRecyclerAdapter.PinnableViewHolder> implements SectionIndexer {
-    public static final String TAG = PinnableRecyclerAdapter.class.getSimpleName();
+public abstract class PinnedRecyclerAdapter extends RecyclerView.Adapter<PinnedRecyclerAdapter.PinnableViewHolder> implements SectionIndexer {
+    public static final String TAG = PinnedRecyclerAdapter.class.getSimpleName();
 
     /**
      * Pinned header state: don't show the header.
